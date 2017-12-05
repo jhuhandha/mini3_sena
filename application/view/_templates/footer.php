@@ -5,7 +5,7 @@
 </div><!-- am-mainpanel -->
 
 <script>
-    var url = "<?php echo URL; ?>";
+    var uri = "<?php echo URL; ?>";
 </script>
 
 <script src="<?= URL ?>lib/jquery/jquery.js"></script>

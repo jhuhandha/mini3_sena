@@ -52,4 +52,13 @@ class Color extends Model
         }
     }
 
+
+    public function get_colores(){
+        $sql = "SELECT * FROM color c INNER JOIN persona_color pc ON (c.codigo = pc.color_codigo) WHERE pc.persona_codigo = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindParam(1, $this->codigo_persona);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
 }

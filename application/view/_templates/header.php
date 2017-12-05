@@ -128,8 +128,14 @@
       <div class="tab-content">
         <div id="mainMenu" class="tab-pane active">
           <ul class="nav am-sideleft-menu">
+            <?php
+              if(isset($_SESSION["Menu"]) && !empty($_SESSION["Menu"])){
+                echo $_SESSION["Menu"];
+              }
+            ?>
+
             <li class="nav-item">
-              <a href="index.html" class="nav-link active">
+              <a href="<?= URL ?>/persona/logout" class="nav-link active">
                 <i class="icon ion-ios-home-outline"></i>
                 <span>Dashboard</span>
               </a>

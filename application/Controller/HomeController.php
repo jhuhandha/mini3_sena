@@ -13,6 +13,13 @@ namespace Mini\Controller;
 
 class HomeController
 {
+
+    function __construct(){
+        if(!isset($_SESSION["Menu"]) || empty($_SESSION["Menu"])){
+            header("Location: " . URL . "persona/crear");
+        }
+    }
+
     /**
      * PAGE: index
      * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)

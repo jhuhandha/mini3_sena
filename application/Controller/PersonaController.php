@@ -31,7 +31,7 @@ class PersonaController
     public function guardar()
     {
 
-        $carpeta = ROOT. "public" . DIRECTORY_SEPARATOR . "upload\\";
+        $carpeta = ROOT . "public" . DIRECTORY_SEPARATOR . "upload\\";
         $nombre_subido = basename($_FILES['imagen']['name']);
 
 
@@ -71,9 +71,63 @@ class PersonaController
         } else {
             $_SESSION["mensaje"] = "<script>alert('no fue posible subir el archivo')</script>";
         }
-            header("location: " . URL . "/persona/crear");
+        header("location: " . URL . "/persona/crear");
     }
 
+
+    public function login()
+    {
+        $login = new Persona();
+        $login->__SET("usuario", $_POST["usuario"]);
+        $resultado = $login->login();
+
+        if ($resultado != false) {
+
+            if (password_verify($_POST["clave"], $resultado->clave)) {
+
+                $login->__SET("rol", $resultado->rol_codigo);
+                $menu = $login->paginas();
+
+                $m = "";
+                foreach ($menu as $value) {
+
+                    $m .= '<li class="nav-item">';
+                    $m .= '<a href="'.$value->url.'" class="nav-link active">';
+                    $m .= '  <i class="icon ion-ios-home-outline"></i>';
+                    $m .= '  <span>'.$value->nombre.'</span>';
+                    $m .= '</a>';
+                    $m .= '</li>';
+                }
+
+                $_SESSION["Codigo"] = $resultado->codigo;
+                $_SESSION["Nombre"] = $resultado->nombre;
+                $_SESSION["Menu"] = $m;
+                header("Location: " . URL . "home");
+
+            }else{
+                $_SESSION["mensaje"] = "<script>alert('la clave no es correcta')</script>";
+                header("Location: " . URL . "home");
+            }
+        }else{
+            $_SESSION["mensaje"] = "<script>alert('no se encontro el usuario')</script>";
+            header("Location: " . URL . "home");
+        }
+    }
+
+    public function logout(){
+        session_destroy();
+        unset($_SESSION["Codigo"]);
+        unset($_SESSION["Nombre"]);
+        unset($_SESSION["Menu"]);
+
+        header("Location: " . URL . "home");
+    }
+
+    public function obtenercolores($personas_id){
+        $color = new Color();
+        $color->__SET("codigo_persona", $personas_id);
+        echo json_encode($color->get_colores());
+    }
 
     public function editar($id)
     {

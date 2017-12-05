@@ -1,8 +1,9 @@
 <div class="am-pagetitle">
     <h5 class="am-title">Dashboard</h5>
-    <form id="searchBar" class="search-bar" action="index.html">
+    <form id="searchBar" class="search-bar" method="post" action="<?= URL ?>persona/login">
         <div class="form-control-wrapper">
-        <input type="search" class="form-control bd-0" placeholder="Search...">
+        <input type="text" class="form-control bd-0" placeholder="Usuario" name="usuario">
+        <input type="password" class="form-control bd-0" placeholder="Clave" name="clave">
         </div><!-- form-control-wrapper -->
         <button id="searchBtn" class="btn btn-orange"><i class="fa fa-search"></i></button>
     </form><!-- search-bar -->

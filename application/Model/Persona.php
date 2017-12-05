@@ -47,12 +47,25 @@ class Persona extends Model {
     }
 
 
+    public function login()
+	{
+		$sql = "SELECT codigo, nombre, telefono, clave, rol_codigo FROM persona WHERE usuario = ?";
+		$stm = $this->db->prepare($sql);
+		$stm->bindParam(1, $this->usuario);
+	 	$stm->execute();
+		return $stm->fetch();
 
+	}
 
+	public function paginas()
+	{
+		$sql = "SELECT * FROM sp_listar_paginas(?)";
+		$stm = $this->db->prepare($sql);
+		$stm->bindParam(1, $this->rol);
+		$stm->execute();
+		return $stm->fetchALL();
 
-
-
-
+	}
 
     
     public function editar(){
@@ -64,7 +77,7 @@ class Persona extends Model {
     }
 
     public function listar(){
-        $sql = 'SELECT * FROM sp_listar_persona2();';
+        $sql = 'SELECT * FROM persona';
         $stm = $this->db->prepare($sql);
         $stm->execute();
         return $stm->fetchAll();

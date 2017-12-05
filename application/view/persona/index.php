@@ -10,33 +10,21 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Documento</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
                         <th>Telefono</th>
-                        <th>Direccion</th>
-                        <th>Correo</th>
-                        <th>Estado</th>
+                        <th>Usuario</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($registros as $key => $value): ?>
+                    <?php foreach ($registros as $key => $value) : ?>
                         <tr>
-                            <td><?= $value->documento ?></td>
                             <td><?= $value->nombre ?></td>
-                            <td><?= $value->apellido ?></td>
                             <td><?= $value->telefono ?></td>
-                            <td><?= $value->direccion ?></td>
-                            <td><?= $value->correo ?></td>
-                            <td><?= $value->estado==true?"Activo":"Inactivo" ?></td>
+                            <td><?= $value->usuario ?></td>
                             <td>
-                                <a href="<?= URL ?>persona/editar/<?= $value->id ?>">Editar</a> - 
-                                <?php if($value->estado): ?>
-                                    <a href="<?= URL ?>persona/estado/0/<?= $value->id ?>">Inactivar</a>
-                                <?php else: ?>
-                                    <a href="<?= URL ?>persona/estado/1/<?= $value->id ?>">Activar</a>
-                                <?php endif ?>
+                                <a href="#" onclick="colores('<?= $value->codigo ?>')" >Colores</a>
+                                <a href="<?= URL ?>persona/editar/<?= $value->codigo ?>">Editar</a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -44,4 +32,27 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="mdlColores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Colores</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group" id="list_colores">
+            
+
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
